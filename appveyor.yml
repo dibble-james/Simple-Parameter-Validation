@@ -5,9 +5,9 @@ assembly_info:
   patch: false
 
 before_build:
-  - cmd: dotnet restore
   - ps: gitversion /l console /output buildserver /updateAssemblyInfo
   - ps: ./build/UpdateAssemblyInfo.ps1
+  - cmd: dotnet restore
 
 build:
   project: SimpleParameterValidation.sln
