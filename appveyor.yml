@@ -6,7 +6,7 @@ assembly_info:
 
 before_build:
   - ps: gitversion /l console /output buildserver /updateAssemblyInfo
-  - ps: ./build/UpdateAssemblyInfo.ps1
+  - ps: ./build/UpdateAssemblyVersions.ps1
   - cmd: dotnet restore
 
 build:
