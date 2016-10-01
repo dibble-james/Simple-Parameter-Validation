@@ -17,6 +17,9 @@
       }
     }
   },
+  "runtimes": {
+    "win7-x64": {}
+  },
   "testRunner": "xunit",
   "version": "1.0.0-*"
 }
