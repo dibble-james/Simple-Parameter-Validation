@@ -1,13 +1,19 @@
-Get-ChildItem -Filter project.json -Recurse | ForEach-Object 
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory)][string] $Version
+)
+
+$projectFiles = Get-ChildItem -Filter project.json -Recurse
+
+ForEach($project in $projectFiles) 
 {
-    $json = (Get-Content -Raw -Path $_.FullName | ConvertFrom-Json)
+    $json = (Get-Content -Raw -Path $project.FullName | ConvertFrom-Json)
 
     $originalVersion = $json.version
-    $newVersion = $env:GitVersion_NuGetVersion
 
-    $json.version = $newVersion
+    $json.version = $Version
     
-    $json | ConvertTo-Json | Set-Content $_.FullName
+    $json | ConvertTo-Json | Set-Content $project.FullName
 
-    Write-Host "DEBUG: Changed " + $_.FullName + " from $originalVersion to $newVersion"
+    Write-Host "DEBUG: Changed " + $project.FullName + " from $originalVersion to $Version"
 }
