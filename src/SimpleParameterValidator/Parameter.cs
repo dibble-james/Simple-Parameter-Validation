@@ -6,6 +6,9 @@
 namespace SimpleParameterValidator
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// A simple set of method parameter validation methods.
@@ -83,6 +86,57 @@ namespace SimpleParameterValidator
             {
                 throw new ArgumentNullException(parameterName, exceptionMessage);
             }
+        }
+
+        /// <summary>
+        /// Validate that <paramref name="parameter" /> is not null or an empty collection.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <typeparam name="T">The collection type.</typeparam>
+        public void CannotBeNullOrEmpty<T>(IEnumerable<T> parameter, string parameterName)
+        {
+            this.CannotBeNullOrEmpty(parameter, parameterName, $"Parameter [{parameterName}] cannot be a null or empty collection.");
+        }
+
+        /// <summary>
+        /// Validate that <paramref name="parameter" /> is not null or an empty string.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="parameterName">Name of the parameter.</param>
+        public void CannotBeNullOrEmpty(string parameter, string parameterName)
+        {
+            this.CannotBeNullOrEmpty(parameter, parameterName, $"Parameter [{parameterName}] cannot be a null or empty string.");
+        }
+
+        /// <summary>
+        /// Validate that <paramref name="parameter" /> is not null or an empty collection.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="exceptionMessage">The message to put into the exception if the validation fails.</param>
+        /// <typeparam name="T">The collection type.</typeparam>
+        public void CannotBeNullOrEmpty<T>(IEnumerable<T> parameter, string parameterName, string exceptionMessage)
+        {
+            this.CannotBe(parameterName, nameof(parameterName), $"{nameof(parameterName)} was not provided when validating parameter", x => string.IsNullOrEmpty(x));
+            this.CannotBe(exceptionMessage, nameof(exceptionMessage), $"{nameof(exceptionMessage)} was not provided when validating parameter [{parameterName}]", x => string.IsNullOrEmpty(x));
+
+            this.CannotBeNull(parameter, parameterName, exceptionMessage);
+            this.ShouldBe(parameter, parameterName, exceptionMessage, x => x.Any());
+        }
+
+        /// <summary>
+        /// Validate that <paramref name="parameter" /> is not null or an empty string.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="exceptionMessage">The message to put into the exception if the validation fails.</param>
+        public void CannotBeNullOrEmpty(string parameter, string parameterName, string exceptionMessage)
+        {
+            this.CannotBe(parameterName, nameof(parameterName), $"{nameof(parameterName)} was not provided when validating parameter", x => string.IsNullOrEmpty(x));
+            this.CannotBe(exceptionMessage, nameof(exceptionMessage), $"{nameof(exceptionMessage)} was not provided when validating parameter [{parameterName}]", x => string.IsNullOrEmpty(x));
+
+            this.CannotBe(parameter, parameterName, x => string.IsNullOrEmpty(x));
         }
 
         /// <summary>
