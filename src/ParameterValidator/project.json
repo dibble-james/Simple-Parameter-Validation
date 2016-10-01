@@ -1,0 +1,25 @@
+﻿{
+  "buildOptions": {
+    "warningsAsErrors": true,
+    "xmlDoc": true
+  },
+  "copyright": "James Dibble",
+  "dependencies": {
+    "NETStandard.Library": "1.6.0",
+    "StyleCop.Analyzers": "1.0.0"
+  },
+  "description": "Methods for performing basic method parameter validation.",
+  "frameworks": {
+    "netstandard1.1": {
+      "imports": "dnxcore50"
+    }
+  },
+  "packOptions": {
+    "owners": [ "James Dibble" ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/dibble-james/ParameterValidation"
+    }
+  },
+  "version": "1.0.0-*"
+}
