@@ -1,0 +1,17 @@
+install:
+  - choco install gitversion.portable -pre -y
+
+assembly_info:
+  patch: false
+
+before_build:
+  - nuget restore
+  - ps: gitversion /l console /output buildserver /updateAssemblyInfo
+  - ps: ./build/UpdateAssemblyInfo.ps1
+
+build:
+  project: SimpleParameterValidation.sln
+
+after_build:
+  - cmd: dotnet pack ./src/SimpleParameterValidator -c "target=%CONFIGURATION%" -o ./publish
+  - cmd: appveyor PushArtifact "./publish/SimpleParameterValidator.%GitVersion_NuGetVersion%.nupkg"
