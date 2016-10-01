@@ -5,7 +5,7 @@ assembly_info:
   patch: false
 
 before_build:
-  - nuget restore
+  - cmd: dotnet restore
   - ps: gitversion /l console /output buildserver /updateAssemblyInfo
   - ps: ./build/UpdateAssemblyInfo.ps1
 
