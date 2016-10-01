@@ -7,26 +7,26 @@
   "copyright": "James Dibble",
   "dependencies": {
     "NETStandard.Library": "1.6.0",
-    "StyleCop.Analyzers": "1.0.0",
-    "System.Collections.Immutable": "1.2.0"
+    "StyleCop.Analyzers": {
+      "type": "build",
+      "version": "1.0.0"
+    }
   },
   "description": "Methods for performing basic method parameter validation.",
   "frameworks": {
-    "netcoreapp1.0": {
-      "dependencies": {
-        "Microsoft.NETCore.App": {
-          "type": "platform",
-          "version": "1.0.0"
-        }
-      }
+    "netstandard1.1": {
     }
   },
   "packOptions": {
+    "projectUrl": "https://github.com/dibble-james/SimpleParameterValidation",
     "owners": [ "James Dibble" ],
     "repository": {
       "type": "git",
       "url": "https://github.com/dibble-james/SimpleParameterValidation"
-    }
+    },
+    "tags": [
+      "Validation"
+    ]
   },
   "version": "1.0.0-*"
 }
