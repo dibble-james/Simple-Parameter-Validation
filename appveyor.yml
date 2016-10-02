@@ -1,5 +1,5 @@
 os: Visual Studio 2015
-
+configuration: release
 install:
   - choco install gitversion.portable -pre -y
 
@@ -15,5 +15,8 @@ build:
   project: SimpleParameterValidation.sln
 
 after_build:
-  - cmd: dotnet pack ./src/SimpleParameterValidator -c "target=%CONFIGURATION%" -o ./publish
+  - cmd: dotnet pack ./src/SimpleParameterValidator -c "%CONFIGURATION%" -o ./publish
   - cmd: appveyor PushArtifact "./publish/SimpleParameterValidator.%GitVersion_NuGetVersion%.nupkg"
+
+test_script:
+- cmd: dotnet test ./tests/SimpleParameterValidator.UnitTests
